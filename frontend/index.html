@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#153431">
+    <title>ResolveIT — IT Service Desk</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css?v=4">
+  </head>
+  <body>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <dialog id="confirm-dialog" class="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-message">
+      <form method="dialog">
+        <p class="eyebrow">PLEASE CONFIRM</p>
+        <h2 id="confirm-title">Confirm this action</h2>
+        <p id="confirm-message"></p>
+        <div class="confirm-actions"><button class="button button-quiet" value="cancel">Cancel</button><button class="button button-danger" id="confirm-accept" value="confirm">Confirm</button></div>
+      </form>
+    </dialog>
+    <section id="auth-view" class="auth-layout">
+      <div class="auth-brand">
+        <a class="brand brand-light" href="/">
+          <span class="brand-mark">R</span>
+          <span>Resolve<span class="brand-accent">IT</span></span>
+        </a>
+        <div class="auth-message">
+          <p class="eyebrow">YOUR IT SERVICE DESK</p>
+          <h1>Technology should<br>just work.</h1>
+          <p>One place to report issues, follow progress, and get back to what matters.</p>
+        </div>
+        <div class="auth-footnote">IT support, without the guesswork.</div>
+      </div>
+      <div class="auth-panel">
+        <div class="auth-card">
+          <div class="mobile-brand brand">
+            <span class="brand-mark">R</span>
+            <span>Resolve<span class="brand-accent">IT</span></span>
+          </div>
+          <p class="eyebrow" id="auth-eyebrow">WELCOME BACK</p>
+          <h2 id="auth-title">Sign in to your account</h2>
+          <p class="muted" id="auth-subtitle">Access your support requests and updates.</p>
+          <div class="auth-tabs" role="tablist">
+            <button type="button" class="auth-tab active" data-auth-mode="login">Sign in</button>
+            <button type="button" class="auth-tab" data-auth-mode="register">Create account</button>
+          </div>
+          <form id="auth-form">
+            <label id="name-field" class="field hidden">Full name
+              <input name="name" autocomplete="name" minlength="2" maxlength="120">
+            </label>
+            <label class="field">Work email
+              <input name="email" type="email" autocomplete="username" required>
+            </label>
+            <label class="field">Password
+              <input name="password" type="password" autocomplete="current-password" minlength="8" required>
+            </label>
+            <button class="button button-primary button-wide" type="submit" id="auth-submit">Sign in</button>
+            <p class="form-error" id="auth-error"></p>
+          </form>
+          <div class="demo-hint">
+            <span class="dot dot-green"></span>
+            Local demo: <strong>admin@resolveit.local</strong> / <strong>Admin123!</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="app-view" class="app-layout hidden">
+      <aside class="sidebar">
+        <a class="brand sidebar-brand" href="#" data-page="dashboard">
+          <span class="brand-mark">R</span>
+          <span>Resolve<span class="brand-accent">IT</span></span>
+        </a>
+        <div class="workspace-label">WORKSPACE</div>
+        <nav class="main-nav" aria-label="Main navigation">
+          <button class="nav-link active" data-page="dashboard"><span class="nav-icon">▦</span> Overview</button>
+          <button class="nav-link" data-page="tickets"><span class="nav-icon">▤</span> Tickets <span id="ticket-nav-count" class="nav-count"></span></button>
+          <button class="nav-link" data-page="new-ticket"><span class="nav-icon">＋</span> Create request</button>
+          <button class="nav-link" data-page="assets"><span class="nav-icon">▣</span> Assets</button>
+          <button class="nav-link hidden" id="admin-nav" data-page="admin"><span class="nav-icon">⚙</span> Administration</button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-help">
+            <div class="help-icon">?</div>
+            <strong>Need a hand?</strong>
+            <span>Our support team is here to help.</span>
+          </div>
+          <div class="profile">
+            <div class="avatar" id="profile-avatar">R</div>
+            <div class="profile-copy">
+              <strong id="profile-name">User</strong>
+              <span id="profile-role">Employee</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="breadcrumb"><span>Workspace</span><span class="crumb-separator">/</span><strong id="page-title">Overview</strong></div>
+          <div class="topbar-actions">
+            <form id="global-search" class="global-search" role="search">
+              <label class="sr-only" for="global-search-input">Search tickets and assets</label>
+              <span aria-hidden="true">⌕</span>
+              <input id="global-search-input" type="search" placeholder="Search tickets and assets" autocomplete="off" aria-controls="global-search-results" aria-expanded="false">
+              <div id="global-search-results" class="global-search-results hidden" role="listbox" aria-label="Search results" aria-live="polite"></div>
+            </form>
+            <button id="notification-button" class="notification-button" aria-label="Notifications">
+              <span>♧</span><i id="notification-dot" class="notification-dot hidden"></i>
+            </button>
+            <div id="topbar-date" class="topbar-date"></div>
+            <button id="logout-button" class="logout-button" type="button">↗ Sign out</button>
+          </div>
+        </header>
+        <div id="page-content" class="page-content"></div>
+      </main>
+    </div>
+    <script src="/static/app.js?v=4" defer></script>
+  </body>
+</html>
